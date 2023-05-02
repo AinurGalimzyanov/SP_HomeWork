@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,29 +20,35 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .antMatchers("/api/admin/**")
-                .hasAnyRole(ClientRoles.ADMIN)
+                .hasAnyRole(ClientRoles.ROLE_ADMIN)
                 .antMatchers("/api/public/**")
                 .permitAll()
                 .antMatchers("/api/support/**")
-                .hasAnyRole(ClientRoles.ADMIN, ClientRoles.SUPPORT)
+                .hasAnyRole(ClientRoles.ROLE_ADMIN, ClientRoles.ROLE_SUPPORT)
                 .and()
                 .formLogin()
                 .and().httpBasic();
         return http.build();
     }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails admin = User.withUsername("admin")
-                .password("123")
-                .roles(ClientRoles.ADMIN)
+                .password(encoder().encode("123"))
+                .roles(ClientRoles.ROLE_ADMIN)
                 .build();
         UserDetails user = User.withUsername("user")
-                .password("123")
-                .roles(ClientRoles.USER)
+                .password(encoder().encode("123"))
+                .roles(ClientRoles.ROLE_USER)
                 .build();
         UserDetails support = User.withUsername("support")
-                .password("123")
-                .roles(ClientRoles.SUPPORT)
+                .password(encoder().encode("123"))
+                .roles(ClientRoles.ROLE_SUPPORT)
                 .build();
         return new InMemoryUserDetailsManager(admin, user, support);
     }

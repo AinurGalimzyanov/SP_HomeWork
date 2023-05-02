@@ -1,5 +1,7 @@
 package com.example.sb_homework.api.admin;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,17 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/admin")
 public class AdminController {
 
+    InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
     @Autowired
-    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
+    public AdminController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
+
     @GetMapping( "getAdmin")
     public ResponseEntity<String> GetAdmin() {
         var admin = inMemoryUserDetailsManager.loadUserByUsername("admin");

@@ -1,5 +1,6 @@
 package com.example.sb_homework.api.support;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/support")
 public class SupportController {
 
+    InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
     @Autowired
-    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
+    public SupportController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
 
     @GetMapping( "getSupport")
     public ResponseEntity<String> GetSupport() {

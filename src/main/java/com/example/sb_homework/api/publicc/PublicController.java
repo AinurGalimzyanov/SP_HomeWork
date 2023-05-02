@@ -1,5 +1,6 @@
 package com.example.sb_homework.api.publicc;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/public")
 public class PublicController {
 
+    InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
     @Autowired
-    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
+    public PublicController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
 
     @GetMapping( "getUser")
     public ResponseEntity<String> GetUser() {
