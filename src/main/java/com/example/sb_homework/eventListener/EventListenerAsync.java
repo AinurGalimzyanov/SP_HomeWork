@@ -1,6 +1,7 @@
 package com.example.sb_homework.eventListener;
 
 import com.example.sb_homework.event.CountEvent;
+import com.example.sb_homework.event.SecondEvent;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -15,9 +16,9 @@ public class EventListenerAsync {
     @SneakyThrows
     @EventListener
     @Async
-    public void asyncListener(CountEvent countEvent)
+    public void asyncListener(SecondEvent secondEvent)
     {
         Thread.sleep(4000);
-        log.info("The async event worked for {}", countEvent.getMessage());
+        log.info("The second event worked" + ' ' + secondEvent.getMessage());
     }
 }
