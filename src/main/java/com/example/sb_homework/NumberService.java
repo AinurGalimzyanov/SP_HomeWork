@@ -1,14 +1,16 @@
 package com.example.sb_homework;
 
-import com.example.sb_homework.event.FisrtEvent;
+import com.example.sb_homework.event.FirstEvent;
 import com.example.sb_homework.event.FourthEvent;
 import com.example.sb_homework.event.SecondEvent;
 import com.example.sb_homework.event.ThirdEvent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
@@ -16,16 +18,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Service
-@RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Transactional
 public class NumberService {
 
     ApplicationEventPublisher applicationEventPublisher;
-    DataSource dataSource;
+
+    @Autowired
+    public NumberService(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     public Integer getOne() {
-        applicationEventPublisher.publishEvent(new FisrtEvent(this, "one"));
+        applicationEventPublisher.publishEvent(new FirstEvent(this, "one"));
         return 1;
     }
     public Integer getTwo() {
@@ -34,14 +38,6 @@ public class NumberService {
     }
 
     public Integer getThree()  {
-//        Connection connection = dataSource.getConnection();
-//
-//        try (connection) {
-//            connection.setAutoCommit(false);
-//            connection.commit();
-//        } catch (SQLException e) {
-//            connection.rollback();
-//        }
         applicationEventPublisher.publishEvent(new ThirdEvent(this, "three"));
         return 3;
     }

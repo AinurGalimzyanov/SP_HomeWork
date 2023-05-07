@@ -4,10 +4,10 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 @Getter
-public class CountEvent extends ApplicationEvent {
-    private final String message;
+public class FirstEvent extends ApplicationEvent {
+    String message;
 
-    public CountEvent(Object source, String message) {
+    public FirstEvent(Object source, String message) {
         super(source);
         this.message = message;
     }
