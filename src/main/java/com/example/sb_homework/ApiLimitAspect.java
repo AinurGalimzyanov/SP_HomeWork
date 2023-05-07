@@ -27,7 +27,7 @@ public class ApiLimitAspect {
         var count = apiAccessMap.getOrDefault(methodName, 0) + 1;
         apiAccessMap.put(methodName, count);
         if (count > apiLimit) {
-            throw new ApiLimitException("Api Limit Exception");
+            throw new ApiLimitException("Limit Exception");
         }
     }
 }
