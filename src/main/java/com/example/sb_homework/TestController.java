@@ -9,16 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TestController {
-    NumberService numberService;
 
     @Autowired
-    public TestController(NumberService numberService) {
-        this.numberService = numberService;
-    }
-
+    NumberService numberService;
 
     @GetMapping("/sum")
     public ResponseEntity<Integer> sum() {

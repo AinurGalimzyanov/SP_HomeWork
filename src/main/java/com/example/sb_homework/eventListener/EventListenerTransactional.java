@@ -20,10 +20,12 @@ public class EventListenerTransactional {
         log.info("The third event work!" + ' ' + thirdEvent.getMessage());
     }
 
-    @SneakyThrows
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
-    public void fourthTransactionalListener(FourthEvent fourthEvent) {
-        Thread.sleep(4000);
-        log.info("The fourth event work!" + ' ' + fourthEvent.getMessage());
+    @TransactionalEventListener
+    public void fourthTransactionalListener(FourthEvent fourthEvent ) {
+        if(fourthEvent.shouldHandle()) {
+            log.info("The fourth event work!" + ' ' + fourthEvent.getMessage());
+        } else {
+            log.info("The fourth event ignored!" + ' ' + fourthEvent.getMessage());
+        }
     }
 }

@@ -11,14 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@EnableAsync
 public class EventListenerAsync {
-    @SneakyThrows
     @EventListener
     @Async
     public void asyncListener(SecondEvent secondEvent)
     {
-        Thread.sleep(4000);
         log.info("The second event worked" + ' ' + secondEvent.getMessage());
     }
 }

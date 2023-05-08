@@ -18,12 +18,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Service
-@Transactional
 public class NumberService {
 
-    ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    @Autowired
     public NumberService(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
@@ -43,7 +41,7 @@ public class NumberService {
     }
 
     public Integer getFour() {
-        applicationEventPublisher.publishEvent(new FourthEvent(this, "four"));
+        applicationEventPublisher.publishEvent(new FourthEvent(this, "four", false));
         return 4;
     }
 }
