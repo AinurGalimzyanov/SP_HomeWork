@@ -18,10 +18,7 @@ public class ApiLimitAspect {
     @Value("${api.limit}")
     private int apiLimit;
 
-    @Pointcut("@annotation(com.example.sb_homework.ApiLimit)")
-    public void apiLimitAnnotation(){}
-
-    @Before("apiLimitAnnotation()")
+    @Before("@annotation(com.example.sb_homework.ApiLimit)")
     public void  beforeApiLimit(JoinPoint joinPoint) throws ApiLimitException{
         var methodName = joinPoint.getSignature().getName();
         var count = apiAccessMap.getOrDefault(methodName, 0) + 1;
