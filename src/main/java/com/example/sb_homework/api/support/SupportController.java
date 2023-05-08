@@ -9,21 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/api/support")
 public class SupportController {
 
+    @Autowired
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
-    @Autowired
-    public SupportController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
-        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
-    }
-
     @GetMapping( "getSupport")
+    @RolesAllowed({"SUPPORT"})
     public ResponseEntity<String> GetSupport() {
         var support = inMemoryUserDetailsManager.loadUserByUsername("support");
         return new ResponseEntity<>(support.getUsername(), HttpStatus.OK);

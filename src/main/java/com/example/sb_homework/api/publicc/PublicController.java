@@ -11,21 +11,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/api/public")
 public class PublicController {
 
+    @Autowired
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
-    @Autowired
-    public PublicController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
-        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
-    }
-
     @GetMapping( "getUser")
+    @RolesAllowed({"PUBLIC"})
     public ResponseEntity<String> GetUser() {
         var user = inMemoryUserDetailsManager.loadUserByUsername("user");
         return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);

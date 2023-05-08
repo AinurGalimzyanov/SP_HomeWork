@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.annotation.security.RolesAllowed;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -20,11 +22,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .antMatchers("/api/admin/**")
-                .hasAnyRole(ClientRoles.ROLE_ADMIN)
+                .hasAnyRole("ADMIN")
                 .antMatchers("/api/public/**")
                 .permitAll()
                 .antMatchers("/api/support/**")
-                .hasAnyRole(ClientRoles.ROLE_ADMIN, ClientRoles.ROLE_SUPPORT)
+                .hasAnyRole("ADMIN", "SUPPORT")
                 .and()
                 .formLogin()
                 .and().httpBasic();
@@ -40,15 +42,15 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails admin = User.withUsername("admin")
                 .password(encoder().encode("123"))
-                .roles(ClientRoles.ROLE_ADMIN)
+                .roles("ADMIN")
                 .build();
         UserDetails user = User.withUsername("user")
                 .password(encoder().encode("123"))
-                .roles(ClientRoles.ROLE_USER)
+                .roles("PUBLIC")
                 .build();
         UserDetails support = User.withUsername("support")
                 .password(encoder().encode("123"))
-                .roles(ClientRoles.ROLE_SUPPORT)
+                .roles("SUPPORT")
                 .build();
         return new InMemoryUserDetailsManager(admin, user, support);
     }
