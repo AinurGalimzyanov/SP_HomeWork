@@ -11,7 +11,6 @@ import javax.annotation.PreDestroy;
 import static lombok.AccessLevel.PROTECTED;
 
 @RequiredArgsConstructor
-@FieldDefaults(level = PROTECTED)
 public abstract class FactoryFurniture {
 
     @NonNull
@@ -29,7 +28,7 @@ public abstract class FactoryFurniture {
     @PreDestroy
     public void preDestroy() {
         tree.stop();
-        System.out.printf("The trees are ready for use: %s%n", tree.getIsAvailable());
+        System.out.printf("The trees are disconnected from use: %s%n", tree.getIsAvailable());
         System.out.println(tree.getPrice());
     }
 }

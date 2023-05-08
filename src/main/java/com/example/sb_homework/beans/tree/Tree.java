@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@FieldDefaults(level = PROTECTED)
 public abstract class Tree {
     @NonNull
     private final Integer price;

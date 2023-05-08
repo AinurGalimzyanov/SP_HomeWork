@@ -11,8 +11,8 @@ import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OnlineMarket{
+
     @Autowired
     List<FactoryFurniture> factoryFurnitureList;
 

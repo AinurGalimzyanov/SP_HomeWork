@@ -11,14 +11,10 @@ import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Service
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class  Market {
-    private List<FactoryFurniture> factoryFurnitureList;
 
     @Autowired
-    public void setAvailableProducts(List<FactoryFurniture> furnitures){
-        this.factoryFurnitureList = furnitures;
-    }
+    private List<FactoryFurniture> factoryFurnitureList;
 
     @PostConstruct
     public void postConstruct() {
