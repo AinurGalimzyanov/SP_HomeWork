@@ -6,25 +6,24 @@ import com.example.sb_homework.event.SecondEvent;
 import com.example.sb_homework.event.ThirdEvent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import javax.sql.DataSource;
-import javax.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class NumberService {
 
-    private final ApplicationEventPublisher applicationEventPublisher;
-
-    public NumberService(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
+    ApplicationEventPublisher applicationEventPublisher;
 
     public Integer getOne() {
         applicationEventPublisher.publishEvent(new FirstEvent(this, "one"));
@@ -35,13 +34,9 @@ public class NumberService {
         return 2;
     }
 
+    @Transactional
     public Integer getThree()  {
         applicationEventPublisher.publishEvent(new ThirdEvent(this, "three"));
         return 3;
-    }
-
-    public Integer getFour() {
-        applicationEventPublisher.publishEvent(new FourthEvent(this, "four", false));
-        return 4;
     }
 }

@@ -12,20 +12,19 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Slf4j
-@Service
+@Component
 public class EventListenerTransactional {
-    @EventListener
-    public void thirdTransactionalListener(ThirdEvent thirdEvent)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @SneakyThrows
+    public FourthEvent thirdTransactionalListener(ThirdEvent thirdEvent)
     {
         log.info("The third event work!" + ' ' + thirdEvent.getMessage());
+        return new FourthEvent(thirdEvent.getSource(), "4");
     }
 
-    @TransactionalEventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
+    @SneakyThrows
     public void fourthTransactionalListener(FourthEvent fourthEvent ) {
-        if(fourthEvent.shouldHandle()) {
-            log.info("The fourth event work!" + ' ' + fourthEvent.getMessage());
-        } else {
-            log.info("The fourth event ignored!" + ' ' + fourthEvent.getMessage());
-        }
+        log.info("The fourth event work!" + ' ' + fourthEvent.getMessage());
     }
 }
