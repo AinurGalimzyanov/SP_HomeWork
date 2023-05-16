@@ -15,7 +15,6 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 public class EventListenerTransactional {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @SneakyThrows
     public FourthEvent thirdTransactionalListener(ThirdEvent thirdEvent)
     {
         log.info("The third event work!" + ' ' + thirdEvent.getMessage());
@@ -23,7 +22,6 @@ public class EventListenerTransactional {
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
-    @SneakyThrows
     public void fourthTransactionalListener(FourthEvent fourthEvent ) {
         log.info("The fourth event work!" + ' ' + fourthEvent.getMessage());
     }
