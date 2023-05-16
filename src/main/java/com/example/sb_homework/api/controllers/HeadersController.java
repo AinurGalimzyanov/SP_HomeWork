@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 public class HeadersController {
     @GetMapping( "/all-headers")
-    public ResponseEntity<Map<String, String>> GetAllHeaders(@RequestHeader Map<String, String> headers) {
-        return new ResponseEntity<>(headers, HttpStatus.OK);
+    public Map<String, String> GetAllHeaders(@RequestHeader Map<String, String> headers) {
+        return headers;
     }
 }

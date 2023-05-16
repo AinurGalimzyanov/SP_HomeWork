@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value
-@Builder
 public class CreateProductModelRequest {
     public double price;
     public InfoModelRequest info;

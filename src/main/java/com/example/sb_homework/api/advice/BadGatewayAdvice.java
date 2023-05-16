@@ -11,7 +11,7 @@ import static org.springframework.http.ResponseEntity.status;
 @ExaptionV1
 public class BadGatewayAdvice {
     @ExceptionHandler({BadGatewayException.class})
-    public ResponseEntity<String> badGateway(Exception e) {
+    public ResponseEntity<String> badGateway(BadGatewayException e) {
         return status(BAD_GATEWAY).body(e.getMessage());
     }
 }

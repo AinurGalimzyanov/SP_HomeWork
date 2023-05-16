@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Random;
 
 @Value
-@Builder
 public class InfoModelResponse {
 
     public int id;
