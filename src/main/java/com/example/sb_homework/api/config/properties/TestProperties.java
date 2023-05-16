@@ -12,6 +12,6 @@ import java.util.List;
 public class TestProperties {
     String evn;
     String app;
-    List<Integer> listValue;
+    List<Integer> list;
 }
 
