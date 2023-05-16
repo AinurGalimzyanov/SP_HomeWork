@@ -1,6 +1,7 @@
 package com.example.sb_homework.api.support;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/support")
+@FieldDefaults(level = PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class SupportController {
 
-    @Autowired
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     @GetMapping( "getSupport")

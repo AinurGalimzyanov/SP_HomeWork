@@ -20,9 +20,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/admin")
+@FieldDefaults(level = PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     @GetMapping( "getAdmin")
