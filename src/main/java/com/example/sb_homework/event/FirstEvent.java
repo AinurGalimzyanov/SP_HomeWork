@@ -3,7 +3,7 @@ package com.example.sb_homework.event;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-@Getter
+
 public class FirstEvent extends ApplicationEvent {
     String message;
 
