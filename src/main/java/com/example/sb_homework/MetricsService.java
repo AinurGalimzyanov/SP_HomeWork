@@ -1,32 +1,38 @@
 package com.example.sb_homework;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class MetricsService {
+    MeterRegistry meterRegistry;
 
-    private Map<String, Map<Integer, Integer>> metricMap;
-
-    public void increaseCount(String request, int status) {
-        Map<Integer, Integer> statusMap = metricMap.get(request);
-        if (statusMap == null) {
-            statusMap = new ConcurrentHashMap<>();
-        }
-
-        Integer count = statusMap.get(status);
-        if (count == null) {
-            count = 1;
-        } else {
-            count++;
-        }
-        statusMap.put(status, count);
-        metricMap.put(request, statusMap);
+    private void countChocolateIncrement(String chocolateName) {
+        Counter counter = meterRegistry.counter(chocolateName);
+        counter.increment();
     }
 
-    public Map getFullMetric() {
-        return metricMap;
+    public String snickers() {
+        countChocolateIncrement("snickers");
+        return "Snickers";
+    }
+
+    public String twix() {
+        countChocolateIncrement("twix");
+        return "Twix";
+    }
+
+    public String kitKat() {
+        countChocolateIncrement("kitKat");
+        return "KitKat";
     }
 }

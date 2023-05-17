@@ -1,19 +1,22 @@
 package com.example.sb_homework;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
-@Endpoint(id = "my-actuator")
 @Component
-public class MyActuator {
+@Slf4j
+@Endpoint(id = "datetime")
+public class MyActuator{
 
     @ReadOperation
-    public String myOperation() {
-        String message = "My actuator was called at " + LocalDateTime.now();
-        System.out.println(message);
-        return message;
+    public Instant dateTime() {
+        Instant i = Instant.now();
+        log.info(i.toString());
+        return i;
     }
 }
