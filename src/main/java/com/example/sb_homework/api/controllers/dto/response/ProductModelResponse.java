@@ -12,7 +12,7 @@ public class ProductModelResponse {
     public InfoModelResponse info;
 
     public ProductModelResponse(CreateProductModelRequest request) {
-        this.price = request.price;
-        this.info = new InfoModelResponse(request.info);
+        this.price = request.getPrice();
+        this.info = new InfoModelResponse(request.getInfo());
     }
 }

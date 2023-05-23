@@ -15,7 +15,7 @@ public class InfoModelResponse {
     public Date date;
 
     public InfoModelResponse(InfoModelRequest request) {
-        this.date = request.date;
+        this.date = request.getDate();
         var r = new Random();
         this.id = r.nextInt(200);
     }
