@@ -5,6 +5,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,8 @@ public class SupportController {
 
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
+    @Secured("ROLE_SUPPORT")
     @GetMapping( "getSupport")
-    @RolesAllowed({"SUPPORT"})
     public ResponseEntity<String> GetSupport() {
         var support = inMemoryUserDetailsManager.loadUserByUsername("support");
         return new ResponseEntity<>(support.getUsername(), HttpStatus.OK);

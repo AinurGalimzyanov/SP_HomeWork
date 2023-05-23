@@ -27,7 +27,7 @@ public class AdminController {
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     @GetMapping( "getAdmin")
-    @RolesAllowed("ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     public ResponseEntity<String> GetAdmin() {
         var admin = inMemoryUserDetailsManager.loadUserByUsername("admin");
         return new ResponseEntity<>(admin.getUsername(), HttpStatus.OK);

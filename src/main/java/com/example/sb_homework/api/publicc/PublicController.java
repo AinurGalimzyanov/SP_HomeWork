@@ -26,7 +26,7 @@ public class PublicController {
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     @GetMapping( "getUser")
-    @RolesAllowed({"PUBLIC"})
+    @RolesAllowed({"ROLE_PUBLIC"})
     public ResponseEntity<String> GetUser() {
         var user = inMemoryUserDetailsManager.loadUserByUsername("user");
         return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);
