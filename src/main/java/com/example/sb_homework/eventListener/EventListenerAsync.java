@@ -1,17 +1,15 @@
 package com.example.sb_homework.eventListener;
 
 import com.example.sb_homework.event.SecondEvent;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @Slf4j
+@EnableAsync
 public class EventListenerAsync {
     @EventListener
     @Async

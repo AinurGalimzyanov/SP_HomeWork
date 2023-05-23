@@ -29,6 +29,7 @@ public class NumberService {
         applicationEventPublisher.publishEvent(new FirstEvent(this, "one"));
         return 1;
     }
+
     public Integer getTwo() {
         applicationEventPublisher.publishEvent(new SecondEvent(this, "two"));
         return 2;
@@ -38,5 +39,11 @@ public class NumberService {
     public Integer getThree()  {
         applicationEventPublisher.publishEvent(new ThirdEvent(this, "three"));
         return 3;
+    }
+
+    @Transactional
+    public Integer getFour()  {
+        applicationEventPublisher.publishEvent(new FourthEvent(this, "four"));
+        return 4;
     }
 }

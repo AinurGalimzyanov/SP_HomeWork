@@ -21,7 +21,9 @@ public class TestController {
         Integer one = numberService.getOne();
         Integer two = numberService.getTwo();
         Integer three = numberService.getThree();
-        var sum = one + two + three;
+        Integer four = numberService.getFour();
+
+        var sum = one + two + three + four;
         return new ResponseEntity<>(sum, HttpStatus.OK);
     }
 }
