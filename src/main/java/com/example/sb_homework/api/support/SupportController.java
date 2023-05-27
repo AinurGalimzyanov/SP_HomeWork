@@ -25,7 +25,7 @@ public class SupportController {
 
     InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
-    @Secured("ROLE_SUPPORT")
+    @RolesAllowed("ROLE_SUPPORT")
     @GetMapping( "getSupport")
     public ResponseEntity<String> GetSupport() {
         var support = inMemoryUserDetailsManager.loadUserByUsername("support");
